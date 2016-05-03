@@ -1,26 +1,27 @@
 #include <GL/glut.h>
-
+#include<cmath>
+#define PI 3.141592
 float vertices[8][3] =
 {
-    {-1.0,-1.0,1.0},
-    {-1.0,1.0,1.0},
-    {1.0,1.0,1.0},
-    {1.0,-1.0,1.0},
-    {-1.0,-1.0,-1.0},
-    {-1.0,1.0,-1.0},
-    {1.0,1.0,-1.0},
-    {1.0,-1.0,-1.0},
+    {-3.0,-3.0,3.0},
+    {-3.0,3.0,3.0},
+    {3.0,3.0,3.0},
+    {3.0,-3.0,3.0},
+    {-3.0,-3.0,-3.0},
+    {-3.0,3.0,-3.0},
+    {3.0,3.0,-3.0},
+    {3.0,-3.0,-3.0},
 };
 
 GLfloat color[8][3] =
 {
-    {0.0,1.0,0.0},
-    {1.0,0.0,0.0},
-    {1.0,1.0,0.0},
-    {1.0,1.0,1.0},
-    {0.0,0.0,1.0},
-    {1.0,0.0,1.0},
-    {1.0,1.0,1.0},
+    {0.0,1.0,0.0}, //Verde
+    {1.0,0.0,0.0}, // Rojo
+    {1.0,1.0,0.0}, //amarillo
+    {1.0,1.0,1.0},//Blanco
+    {0.0,0.0,1.0},//Azul
+    {0.9,0.38,0.0}, //naranja
+    {1.0,1.0,1.0},//Blanco
     {0.0,1.0,1.0},
 };
 int cara=0;
@@ -56,13 +57,13 @@ double rotate_x = 0;
 void specialKeys( int key, int x, int y )
 {
     if (key == GLUT_KEY_RIGHT)
-        rotate_y += 5;
+        rotate_y += 90;
     else if (key == GLUT_KEY_LEFT)
-        rotate_y -= 5;
+        rotate_y -= 90;
     else if (key == GLUT_KEY_UP)
-        rotate_x += 5;
+        rotate_x += 90;
     else if (key == GLUT_KEY_DOWN)
-        rotate_x -= 5;
+        rotate_x -= 90;
 
     glutPostRedisplay();
 }
@@ -95,15 +96,15 @@ void display()
     glLoadIdentity();
     gluLookAt
         (
-        3, 3, 3,
+        10, 4, 4,
         0, 0, 0,
-        0, 0, 1
+        0, 1, 0
         );
 
-    glRotatef( rotate_x, 1.0, 0.0, 0.0 );
+    glRotatef( rotate_x, 0.0, 0.0, 1.0 );
     glRotatef( rotate_y, 0.0, 1.0, 0.0 );
 
-    glTranslatef(translate_x, translate_y, 0.0 );
+  //  glTranslatef(translate_x, translate_y, 0.0 );
 
     colorcube();
 
