@@ -94,60 +94,62 @@ int vertices[54][4][3]=
  { //vertice 36
   {1,3,1},  {1,3,3},  {3,3,1},  {3,3,3}
  },
- { //vertice 30
-  {1,3,-3},  {1,3,-1},  {3,3,-3},  {3,3,-1}
- },
  { //vertice 33
   {1,3,-1},  {1,3,1},  {3,3,-1},  {3,3,1}
  },
+ { //vertice 30
+  {1,3,-3},  {1,3,-1},  {3,3,-3},  {3,3,-1}
+ },
+
  { //vertice 35
   {-1,3,1},  {-1,3,3},  {1,3,1},  {1,3,3}
- },
- { //vertice 29
-  {-1,3,-3},  {-1,3,-1},  {1,3,-3},  {1,3,-1}
  },
  { //vertice 32
   {-1,3,-1},  {-1,3,1},  {1,3,-1},  {1,3,1}
  },
+ { //vertice 29
+  {-1,3,-3},  {-1,3,-1},  {1,3,-3},  {1,3,-1}
+ },
+
  { //vertice 34
   {-3,3,1},  {-3,3,3},  {-1,3,1},  {-1,3,3}
  },
- { //vertice 28
-  {-3,3,-3},  {-3,3,-1},  {-1,3,-3},  {-1,3,-1}
- },
  { //vertice 31
   {-3,3,-1},  {-3,3,1},  {-1,3,-1},  {-1,3,1}
+ },
+ { //vertice 28
+  {-3,3,-3},  {-3,3,-1},  {-1,3,-3},  {-1,3,-1}
  },
 // Cara 5
 
  { //vertice 39
   {1,-3,-3},  {1,-1,-3},  {3,-3,-3},  {3,-1,-3}
   },
- { //vertice 38
-  {-1,-3,-3},  {-1,-1,-3},  {1,-3,-3},  {1,-1,-3}
-  },
  { //vertice 37
   {-3,-3,-3},  {-3,-1,-3},  {-1,-3,-3},  {-1,-1,-3}
+  },
+ { //vertice 38
+  {-1,-3,-3},  {-1,-1,-3},  {1,-3,-3},  {1,-1,-3}
   },
 
  { //vertice 42
   {1,-1,-3},  {1,1,-3},  {3,-1,-3},  {3,1,-3}
   },
- { //vertice 41
-  {-1,-1,-3},  {-1,1,-3},  {1,-1,-3},  {1,1,-3}
-  },
  { //vertice 40
   {-3,-1,-3},  {-3,1,-3},  {-1,-1,-3},  {-1,1,-3}
+  },
+ { //vertice 41
+  {-1,-1,-3},  {-1,1,-3},  {1,-1,-3},  {1,1,-3}
   },
 
  { //vertice 45
   {1,1,-3},  {1,3,-3},  {3,1,-3},  {3,3,-3}
 },
- { //vertice 44
-  {-1,1,-3},  {-1,3,-3},  {1,1,-3},  {1,3,-3}
-  },
  { //vertice 43
   {-3,1,-3},  {-3,3,-3},  {-1,1,-3},  {-1,3,-3}
+  },
+ { //vertice 44
+  {-1,1,-3},  {-1,3,-3},  {1,1,-3},  {1,3,-3}
   },
 // Cara 6
  { //vertice 46
@@ -249,13 +251,25 @@ GLfloat color[8][3] =
     {0.0,0.0,0.0},//negro
 };
 void permutaVertices(int a,int b){
-
+    int originalA=a;
     a=a*9;
     b=b*9;
     for(int i=0;i<9;i++){
       int aux=colores[a+i];
       colores[a+i]=colores[b+i];
       colores[b+i]=aux;
+    }
+    
+    if(originalA==3 && b==0){
+      for(int i=0;i<4;i=i+1){
+
+        int aux=colores[a+i];
+        colores[a+i]=colores[a+(8-i)];
+        colores[a+(8-i)]=aux;
+        aux=colores[b+i];
+        colores[b+i]=colores[b+(8-i)];
+        colores[b+(8-i)]=aux;
+      }
     }
  
 }
@@ -273,13 +287,25 @@ void permutaVerticesRenglon(int a,int b,int renglon){
 }
 void permutaVerticesColumna(int a,int b,int columna){
 
+    int originalA=a;
     a=a*9;
     b=b*9;
     for(int i=columna;i<9;i=i+3){
+      if(originalA==3 && b==0){
+
+        int aux=colores[a+i];
+        colores[a+i]=colores[b+8-i];
+        colores[b+8-i]=aux;
+
+      }else{
+
       int aux=colores[a+i];
       colores[a+i]=colores[b+i];
       colores[b+i]=aux;
+      }
     }
+
+     
  
 }
 void giraDerecha(int renglon){
@@ -289,12 +315,15 @@ void giraDerecha(int renglon){
       permutaVerticesRenglon(5,0,renglon);
       printf("giraDerecha %d\n",renglon );
    
-      int numero=2;
-      if(renglon==0)
+      int numero=-1;
+      int contador=2;
+      if(renglon==0){
         numero=2*9;
+        contador=6;
+      }
       else if(renglon==2)
         numero=3*9;
-
+      while(numero!=-1 and contador--){
       int auxiliar=colores[numero+0];
       colores[numero+0]=colores[numero+3];
       int auxiliar2=colores[numero+1];
@@ -314,7 +343,7 @@ void giraDerecha(int renglon){
       colores[numero+6]=auxiliar2;
       auxiliar2=colores[numero+3];
       colores[numero+3]=auxiliar;
-      
+      }
     
 }
 
@@ -325,11 +354,40 @@ void giraIzquierda(int renglon){
      giraDerecha(renglon);
 }
 void giraArriba(int columna){
-
+printf("girando columna=%d\n",columna );
       permutaVerticesColumna(3,0,columna);
-      permutaVerticesColumna(1,3,columna);
-      permutaVerticesColumna(2,1,columna);
+     permutaVerticesColumna(1,3,columna);
+     permutaVerticesColumna(2,1,columna);
+ 
+ int numero=-1;
+      int contador=6;
+      if(columna==0){
+        numero=5*9;
+        contador=2;
+      }
+      else if(columna==2)
+        numero=4*9;
+      while(numero!=-1 and contador--){
+      int auxiliar=colores[numero+0];
+      colores[numero+0]=colores[numero+3];
+      int auxiliar2=colores[numero+1];
+      colores[numero+1]=auxiliar;
 
+      auxiliar=colores[numero+2];
+      colores[numero+2]=auxiliar2;
+      auxiliar2=colores[numero+5];
+      colores[numero+5]=auxiliar;
+
+      auxiliar=colores[numero+8];
+      colores[numero+8]=auxiliar2;
+      auxiliar2=colores[numero+7];
+      colores[numero+7]=auxiliar;
+
+      auxiliar=colores[numero+6];
+      colores[numero+6]=auxiliar2;
+      auxiliar2=colores[numero+3];
+      colores[numero+3]=auxiliar;
+      }
 
 }
 void giraAbajo(int columna){
@@ -343,7 +401,34 @@ void arriba(){
       permutaVertices(1,3);
       permutaVertices(2,1);
 
+int numero=3*9;
+      int numeros=5;
+      int repeat=0;
+      while(numeros>=4){
+        numero=numeros*9;
+        repeat++;
+        if(repeat%2==0)
+          numeros--;
+      int auxiliar=colores[numero+0];
+      colores[numero+0]=colores[numero+3];
+      int auxiliar2=colores[numero+1];
+      colores[numero+1]=auxiliar;
 
+      auxiliar=colores[numero+2];
+      colores[numero+2]=auxiliar2;
+      auxiliar2=colores[numero+5];
+      colores[numero+5]=auxiliar;
+
+      auxiliar=colores[numero+8];
+      colores[numero+8]=auxiliar2;
+      auxiliar2=colores[numero+7];
+      colores[numero+7]=auxiliar;
+
+      auxiliar=colores[numero+6];
+      colores[numero+6]=auxiliar2;
+      auxiliar2=colores[numero+3];
+      colores[numero+3]=auxiliar;
+      }
 }
 void abajo(){
   arriba();
@@ -356,6 +441,34 @@ void derecha(){
       permutaVertices(5,1);
       permutaVertices(5,0);
 
+      int numero=3*9;
+      int numeros=3;
+      int repeat=0;
+      while(numeros>=2){
+        numero=numeros*9;
+        repeat++;
+        if(repeat%2==0)
+          numeros--;
+      int auxiliar=colores[numero+0];
+      colores[numero+0]=colores[numero+3];
+      int auxiliar2=colores[numero+1];
+      colores[numero+1]=auxiliar;
+
+      auxiliar=colores[numero+2];
+      colores[numero+2]=auxiliar2;
+      auxiliar2=colores[numero+5];
+      colores[numero+5]=auxiliar;
+
+      auxiliar=colores[numero+8];
+      colores[numero+8]=auxiliar2;
+      auxiliar2=colores[numero+7];
+      colores[numero+7]=auxiliar;
+
+      auxiliar=colores[numero+6];
+      colores[numero+6]=auxiliar2;
+      auxiliar2=colores[numero+3];
+      colores[numero+3]=auxiliar;
+      }
 }
 void izquierda(){
   derecha();
@@ -390,7 +503,7 @@ void cuboRubik()
 {
   glRasterPos2i( 0, 0);
   glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'A');
-  for (int i = 0; i < 54; i++) {
+  for (int i = 0; i < 54; i=i+1) {
     dibujaVertice(i);
   }
  
