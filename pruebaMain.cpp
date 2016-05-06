@@ -8,141 +8,146 @@ int vertices[54][4][3]=
  { //vertice 1
   {-3,-3,-3},  {-3,-3,-1},  {-3,-1,-3},  {-3,-1,-1}
  },
- { //vertice 2
-  {-3,-1,-3},  {-3,-1,-1},  {-3,1,-3},  {-3,1,-1}
- },
- { //vertice 3
-  {-3,1,-3},  {-3,1,-1},  {-3,3,-3},  {-3,3,-1}
- },
  { //vertice 4
   {-3,-3,-1},  {-3,-3,1},  {-3,-1,-1},  {-3,-1,1}
- },
- { //vertice 5
-  {-3,-1,-1},  {-3,-1,1},  {-3,1,-1},  {-3,1,1}
- },
- { //vertice 6
-  {-3,1,-1},  {-3,1,1},  {-3,3,-1},  {-3,3,1}
  },
  { //vertice 7
   {-3,-3,1},  {-3,-3,3},  {-3,-1,1},  {-3,-1,3}
  },
+ { //vertice 2
+  {-3,-1,-3},  {-3,-1,-1},  {-3,1,-3},  {-3,1,-1}
+ },
+ { //vertice 5
+  {-3,-1,-1},  {-3,-1,1},  {-3,1,-1},  {-3,1,1}
+ },
  { //vertice 8
   {-3,-1,1},  {-3,-1,3},  {-3,1,1},  {-3,1,3}
+ },
+ { //vertice 3
+  {-3,1,-3},  {-3,1,-1},  {-3,3,-3},  {-3,3,-1}
+ },
+ { //vertice 6
+  {-3,1,-1},  {-3,1,1},  {-3,3,-1},  {-3,3,1}
  },
  { //vertice 9
   {-3,1,1},  {-3,1,3},  {-3,3,1},  {-3,3,3}
  },
-// Cara 2
- { //vertice 10
-  {3,-3,-3},  {3,-3,-1},  {3,-1,-3},  {3,-1,-1}
- },
- { //vertice 11
-  {3,-1,-3},  {3,-1,-1},  {3,1,-3},  {3,1,-1}
- },
- { //vertice 12
-  {3,1,-3},  {3,1,-1},  {3,3,-3},  {3,3,-1}
+// Cara 2 
+ { //vertice 16
+  {3,-3,1},  {3,-3,3},  {3,-1,1},  {3,-1,3}
  },
  { //vertice 13
   {3,-3,-1},  {3,-3,1},  {3,-1,-1},  {3,-1,1}
  },
- { //vertice 14
-  {3,-1,-1},  {3,-1,1},  {3,1,-1},  {3,1,1}
- },
- { //vertice 15
-  {3,1,-1},  {3,1,1},  {3,3,-1},  {3,3,1}
- },
- { //vertice 16
-  {3,-3,1},  {3,-3,3},  {3,-1,1},  {3,-1,3}
+ { //vertice 10
+  {3,-3,-3},  {3,-3,-1},  {3,-1,-3},  {3,-1,-1}
  },
  { //vertice 17
   {3,-1,1},  {3,-1,3},  {3,1,1},  {3,1,3}
  },
+ { //vertice 14
+  {3,-1,-1},  {3,-1,1},  {3,1,-1},  {3,1,1}
+ },
+ { //vertice 11
+  {3,-1,-3},  {3,-1,-1},  {3,1,-3},  {3,1,-1}
+ },
  { //vertice 18
   {3,1,1},  {3,1,3},  {3,3,1},  {3,3,3}
  },
+ { //vertice 15
+  {3,1,-1},  {3,1,1},  {3,3,-1},  {3,3,1}
+ },
+ { //vertice 12
+  {3,1,-3},  {3,1,-1},  {3,3,-3},  {3,3,-1}
+ },
+
 // Cara 3
- { //vertice 19
-  {-3,-3,-3},  {-3,-3,-1},  {-1,-3,-3},  {-1,-3,-1}
- },
- { //vertice 20
-  {-1,-3,-3},  {-1,-3,-1},  {1,-3,-3},  {1,-3,-1}
- },
- { //vertice 21
-  {1,-3,-3},  {1,-3,-1},  {3,-3,-3},  {3,-3,-1}
+ { //vertice 25
+  {-3,-3,1},  {-3,-3,3},  {-1,-3,1},  {-1,-3,3}
  },
  { //vertice 22
   {-3,-3,-1},  {-3,-3,1},  {-1,-3,-1},  {-1,-3,1}
  },
- { //vertice 23
-  {-1,-3,-1},  {-1,-3,1},  {1,-3,-1},  {1,-3,1}
- },
- { //vertice 24
-  {1,-3,-1},  {1,-3,1},  {3,-3,-1},  {3,-3,1}
- },
- { //vertice 25
-  {-3,-3,1},  {-3,-3,3},  {-1,-3,1},  {-1,-3,3}
+ { //vertice 19
+  {-3,-3,-3},  {-3,-3,-1},  {-1,-3,-3},  {-1,-3,-1}
  },
  { //vertice 26
   {-1,-3,1},  {-1,-3,3},  {1,-3,1},  {1,-3,3}
  },
+ { //vertice 23
+  {-1,-3,-1},  {-1,-3,1},  {1,-3,-1},  {1,-3,1}
+ },
+ { //vertice 20
+  {-1,-3,-3},  {-1,-3,-1},  {1,-3,-3},  {1,-3,-1}
+ },
  { //vertice 27
   {1,-3,1},  {1,-3,3},  {3,-3,1},  {3,-3,3}
  },
-// Cara 4
- { //vertice 28
-  {-3,3,-3},  {-3,3,-1},  {-1,3,-3},  {-1,3,-1}
+ { //vertice 24
+  {1,-3,-1},  {1,-3,1},  {3,-3,-1},  {3,-3,1}
  },
- { //vertice 29
-  {-1,3,-3},  {-1,3,-1},  {1,3,-3},  {1,3,-1}
+ { //vertice 21
+  {1,-3,-3},  {1,-3,-1},  {3,-3,-3},  {3,-3,-1}
+ },
+// Cara 4
+
+ { //vertice 36
+  {1,3,1},  {1,3,3},  {3,3,1},  {3,3,3}
  },
  { //vertice 30
   {1,3,-3},  {1,3,-1},  {3,3,-3},  {3,3,-1}
  },
- { //vertice 31
-  {-3,3,-1},  {-3,3,1},  {-1,3,-1},  {-1,3,1}
- },
- { //vertice 32
-  {-1,3,-1},  {-1,3,1},  {1,3,-1},  {1,3,1}
- },
  { //vertice 33
   {1,3,-1},  {1,3,1},  {3,3,-1},  {3,3,1}
- },
- { //vertice 34
-  {-3,3,1},  {-3,3,3},  {-1,3,1},  {-1,3,3}
  },
  { //vertice 35
   {-1,3,1},  {-1,3,3},  {1,3,1},  {1,3,3}
  },
- { //vertice 36
-  {1,3,1},  {1,3,3},  {3,3,1},  {3,3,3}
+ { //vertice 29
+  {-1,3,-3},  {-1,3,-1},  {1,3,-3},  {1,3,-1}
+ },
+ { //vertice 32
+  {-1,3,-1},  {-1,3,1},  {1,3,-1},  {1,3,1}
+ },
+ { //vertice 34
+  {-3,3,1},  {-3,3,3},  {-1,3,1},  {-1,3,3}
+ },
+ { //vertice 28
+  {-3,3,-3},  {-3,3,-1},  {-1,3,-3},  {-1,3,-1}
+ },
+ { //vertice 31
+  {-3,3,-1},  {-3,3,1},  {-1,3,-1},  {-1,3,1}
  },
 // Cara 5
- { //vertice 37
-  {-3,-3,-3},  {-3,-1,-3},  {-1,-3,-3},  {-1,-1,-3}
+
+ { //vertice 39
+  {1,-3,-3},  {1,-1,-3},  {3,-3,-3},  {3,-1,-3}
   },
  { //vertice 38
   {-1,-3,-3},  {-1,-1,-3},  {1,-3,-3},  {1,-1,-3}
   },
- { //vertice 39
-  {1,-3,-3},  {1,-1,-3},  {3,-3,-3},  {3,-1,-3}
+ { //vertice 37
+  {-3,-3,-3},  {-3,-1,-3},  {-1,-3,-3},  {-1,-1,-3}
   },
- { //vertice 40
-  {-3,-1,-3},  {-3,1,-3},  {-1,-1,-3},  {-1,1,-3}
+
+ { //vertice 42
+  {1,-1,-3},  {1,1,-3},  {3,-1,-3},  {3,1,-3}
   },
  { //vertice 41
   {-1,-1,-3},  {-1,1,-3},  {1,-1,-3},  {1,1,-3}
   },
- { //vertice 42
-  {1,-1,-3},  {1,1,-3},  {3,-1,-3},  {3,1,-3}
+ { //vertice 40
+  {-3,-1,-3},  {-3,1,-3},  {-1,-1,-3},  {-1,1,-3}
   },
- { //vertice 43
-  {-3,1,-3},  {-3,3,-3},  {-1,1,-3},  {-1,3,-3}
-  },
+
+ { //vertice 45
+  {1,1,-3},  {1,3,-3},  {3,1,-3},  {3,3,-3}
+},
  { //vertice 44
   {-1,1,-3},  {-1,3,-3},  {1,1,-3},  {1,3,-3}
   },
- { //vertice 45
-  {1,1,-3},  {1,3,-3},  {3,1,-3},  {3,3,-3}
+ { //vertice 43
+  {-3,1,-3},  {-3,3,-3},  {-1,1,-3},  {-1,3,-3}
   },
 // Cara 6
  { //vertice 46
@@ -244,13 +249,93 @@ GLfloat color[8][3] =
     {0.0,0.0,0.0},//negro
 };
 void permutaVertices(int a,int b){
-  a=a*9;
-  b=b*9;
-  for(int i=0;i<9;i++){
-    int aux=colores[a+i];
-    colores[a+i]=colores[b+i];
-    colores[b+i]=aux;
-  }
+
+    a=a*9;
+    b=b*9;
+    for(int i=0;i<9;i++){
+      int aux=colores[a+i];
+      colores[a+i]=colores[b+i];
+      colores[b+i]=aux;
+    }
+ 
+}
+void permutaVerticesRenglon(int a,int b,int renglon){
+
+    a=a*9;
+    b=b*9;
+    for(int i=renglon*3;i<3*(renglon+1);i++){
+      int aux=colores[a+i];
+      colores[a+i]=colores[b+i];
+      colores[b+i]=aux;
+    }
+   
+ 
+}
+void permutaVerticesColumna(int a,int b,int columna){
+
+    a=a*9;
+    b=b*9;
+    for(int i=columna;i<9;i=i+3){
+      int aux=colores[a+i];
+      colores[a+i]=colores[b+i];
+      colores[b+i]=aux;
+    }
+ 
+}
+void giraDerecha(int renglon){
+      renglon=2-renglon;
+      permutaVerticesRenglon(1,4,renglon);
+      permutaVerticesRenglon(5,1,renglon);
+      permutaVerticesRenglon(5,0,renglon);
+      printf("giraDerecha %d\n",renglon );
+   
+      int numero=2;
+      if(renglon==0)
+        numero=2*9;
+      else if(renglon==2)
+        numero=3*9;
+
+      int auxiliar=colores[numero+0];
+      colores[numero+0]=colores[numero+3];
+      int auxiliar2=colores[numero+1];
+      colores[numero+1]=auxiliar;
+
+      auxiliar=colores[numero+2];
+      colores[numero+2]=auxiliar2;
+      auxiliar2=colores[numero+5];
+      colores[numero+5]=auxiliar;
+
+      auxiliar=colores[numero+8];
+      colores[numero+8]=auxiliar2;
+      auxiliar2=colores[numero+7];
+      colores[numero+7]=auxiliar;
+
+      auxiliar=colores[numero+6];
+      colores[numero+6]=auxiliar2;
+      auxiliar2=colores[numero+3];
+      colores[numero+3]=auxiliar;
+      
+    
+}
+
+void giraIzquierda(int renglon){
+ 
+     giraDerecha(renglon);
+     giraDerecha(renglon);
+     giraDerecha(renglon);
+}
+void giraArriba(int columna){
+
+      permutaVerticesColumna(3,0,columna);
+      permutaVerticesColumna(1,3,columna);
+      permutaVerticesColumna(2,1,columna);
+
+
+}
+void giraAbajo(int columna){
+  giraArriba(columna);
+    giraArriba(columna);
+      giraArriba(columna);
 }
 void arriba(){
 
@@ -308,6 +393,7 @@ void cuboRubik()
   for (int i = 0; i < 54; i++) {
     dibujaVertice(i);
   }
+ 
 }
 
 double rotate_z = 0;
@@ -370,7 +456,14 @@ void display()
   //  glTranslatef(translate_x, translate_y, 0.0 );
 
     cuboRubik();
+    glPointSize(7.0);
+    glBegin(GL_POINTS);
 
+    glVertex3f(3.0,-3.0,-3.0);
+    glVertex3f(3.0,3.0,-3.0);
+    glVertex3f(3.0,-3.0,3.0);
+    glVertex3f(3.0,3.0,3.0);
+    glEnd();
     glutSwapBuffers();
 }
 int anteriorW=0;
@@ -449,15 +542,18 @@ void mouseClickHandler(int button, int state, int x, int y)
     printf("%dcuadrante:%d %d,%d\n",state,cuadrante(x,y),x,y );
     if(state==1){
       if(anteriorA!=cuadranteX || anteriorB!=cuadranteY){
-        if(anteriorA<cuadranteX && anteriorB== cuadranteY)
-         printf("derecha!!\n" );
-         else if(anteriorA>cuadranteX && anteriorB== cuadranteY)
-          printf("izquierda!!\n" );
-        else if(anteriorB>cuadranteY && anteriorA== cuadranteX)
-         printf("Arriba!!\n");
-         else if(anteriorB<cuadranteY && anteriorA== cuadranteX)
-          printf("Abajp!!\n" );
+          if(anteriorA<cuadranteX && anteriorB== cuadranteY){
+           printf("derecha!!\n" );giraDerecha(cuadranteY);
+         }else if(anteriorA>cuadranteX && anteriorB== cuadranteY){
+            printf("izquierda!!\n" );giraIzquierda(cuadranteY);
+         }else if(anteriorB>cuadranteY && anteriorA== cuadranteX){
+           printf("Arriba!!\n"); giraArriba(cuadranteX);
+         }else if(anteriorB<cuadranteY && anteriorA== cuadranteX){
+            printf("Abajp!!\n" );giraAbajo(cuadranteX);
+         }
       }
+
+    glutPostRedisplay();
     }
 
 
