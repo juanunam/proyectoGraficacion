@@ -1,0 +1,185 @@
+izquierda renglon: 2 
+Abajo  columna: 2
+izquierda  
+derecha  
+izquierda  
+derecha  
+arriba  
+abajo  
+arriba  
+abajo  
+arriba  
+abajo  
+izquierda  
+derecha  
+derecha renglon: 2 
+izquierda renglon: 2 
+izquierda  
+izquierda  
+derecha  
+derecha  
+derecha renglon: 2 
+izquierda  
+derecha  
+izquierda renglon: 2 
+Arriba columna: 2
+Abajo  columna: 2
+derecha renglon: 2 
+derecha  
+izquierda  
+izquierda  
+derecha  
+izquierda  
+derecha  
+Arriba columna: 2
+izquierda  
+derecha renglon: 2 
+izquierda renglon: 2 
+derecha renglon: 2 
+Abajo  columna: 0
+Arriba columna: 0
+izquierda renglon: 2 
+derecha renglon: 2 
+Abajo  columna: 0
+izquierda renglon: 2 
+derecha renglon: 2 
+Arriba columna: 0
+arriba  
+abajo  
+izquierda renglon: 2 
+derecha  
+abajo  
+arriba  
+derecha  
+izquierda  
+izquierda  
+derecha  
+Abajo  columna: 2
+derecha renglon: 2 
+izquierda renglon: 2 
+izquierda renglon: 2 
+Arriba columna: 2
+derecha renglon: 2 
+izquierda  
+derecha  
+arriba  
+abajo  
+izquierda renglon: 2 
+Abajo  columna: 2
+arriba  
+abajo  
+derecha renglon: 2 
+abajo  
+arriba  
+izquierda  
+derecha  
+izquierda  
+izquierda  
+izquierda  
+derecha  
+derecha  
+derecha  
+arriba  
+abajo  
+arriba  
+abajo  
+arriba  
+abajo  
+izquierda renglon: 2 
+arriba  
+abajo  
+derecha renglon: 2 
+abajo  
+arriba  
+izquierda renglon: 2 
+arriba  
+abajo  
+derecha renglon: 2 
+arriba  
+abajo  
+izquierda renglon: 2 
+arriba  
+abajo  
+derecha renglon: 2 
+abajo  
+arriba  
+arriba  
+abajo  
+arriba  
+abajo  
+izquierda renglon: 2 
+arriba  
+abajo  
+derecha renglon: 2 
+arriba  
+abajo  
+Arriba columna: 2
+arriba  
+abajo  
+arriba  
+abajo  
+derecha renglon: 2 
+arriba  
+abajo  
+arriba  
+abajo  
+arriba  
+abajo  
+Abajo  columna: 2
+arriba  
+abajo  
+Arriba columna: 2
+arriba  
+arriba  
+izquierda  
+arriba  
+abajo  
+derecha  
+arriba  
+abajo  
+abajo  
+abajo  
+arriba  
+abajo  
+izquierda  
+arriba  
+abajo  
+arriba  
+abajo  
+derecha  
+arriba  
+abajo  
+arriba  
+abajo  
+arriba  
+abajo  
+izquierda  
+arriba  
+abajo  
+derecha  
+arriba  
+abajo  
+arriba  
+abajo  
+arriba  
+arriba  
+abajo  
+abajo  
+arriba  
+abajo  
+izquierda  
+arriba  
+abajo  
+derecha  
+arriba  
+abajo  
+izquierda  
+derecha  
+arriba  
+abajo  
+arriba  
+abajo  
+izquierda  
+arriba  
+abajo  
+derecha  

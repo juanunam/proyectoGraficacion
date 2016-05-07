@@ -1,7 +1,15 @@
 #include <GL/glut.h>
 #include<cmath>
 #include<stdio.h>
+#include<string>
+#include<string.h>
+#include<iostream>
+#include<time.h>
+using namespace std;
 #define PI 3.141592
+time_t horaInicio;
+time_t horaActual;
+int cara,numeroInicio;
 int vertices[54][4][3]=
 {
 // Cara 1
@@ -125,31 +133,32 @@ int vertices[54][4][3]=
  { //vertice 39
   {1,-3,-3},  {1,-1,-3},  {3,-3,-3},  {3,-1,-3}
   },
- { //vertice 37
-  {-3,-3,-3},  {-3,-1,-3},  {-1,-3,-3},  {-1,-1,-3}
-  },
  { //vertice 38
   {-1,-3,-3},  {-1,-1,-3},  {1,-3,-3},  {1,-1,-3}
+  },
+ { //vertice 37
+  {-3,-3,-3},  {-3,-1,-3},  {-1,-3,-3},  {-1,-1,-3}
   },
 
  { //vertice 42
   {1,-1,-3},  {1,1,-3},  {3,-1,-3},  {3,1,-3}
   },
- { //vertice 40
-  {-3,-1,-3},  {-3,1,-3},  {-1,-1,-3},  {-1,1,-3}
-  },
  { //vertice 41
   {-1,-1,-3},  {-1,1,-3},  {1,-1,-3},  {1,1,-3}
+  },
+
+ { //vertice 40
+  {-3,-1,-3},  {-3,1,-3},  {-1,-1,-3},  {-1,1,-3}
   },
 
  { //vertice 45
   {1,1,-3},  {1,3,-3},  {3,1,-3},  {3,3,-3}
 },
- { //vertice 43
-  {-3,1,-3},  {-3,3,-3},  {-1,1,-3},  {-1,3,-3}
-  },
  { //vertice 44
   {-1,1,-3},  {-1,3,-3},  {1,1,-3},  {1,3,-3}
+  },
+ { //vertice 43
+  {-3,1,-3},  {-3,3,-3},  {-1,1,-3},  {-1,3,-3}
   },
 // Cara 6
  { //vertice 46
@@ -313,7 +322,7 @@ void giraDerecha(int renglon){
       permutaVerticesRenglon(1,4,renglon);
       permutaVerticesRenglon(5,1,renglon);
       permutaVerticesRenglon(5,0,renglon);
-      printf("giraDerecha %d\n",renglon );
+      //printf("giraDerecha %d\n",renglon );
    
       int numero=-1;
       int contador=2;
@@ -354,13 +363,13 @@ void giraIzquierda(int renglon){
      giraDerecha(renglon);
 }
 void giraArriba(int columna){
-printf("girando columna=%d\n",columna );
+//printf("girando columna=%d\n",columna );
       permutaVerticesColumna(3,0,columna);
      permutaVerticesColumna(1,3,columna);
      permutaVerticesColumna(2,1,columna);
  
  int numero=-1;
-      int contador=6;
+      int contador=6 ;
       if(columna==0){
         numero=5*9;
         contador=2;
@@ -404,10 +413,10 @@ void arriba(){
 int numero=3*9;
       int numeros=5;
       int repeat=0;
-      while(numeros>=4){
+      while(repeat<8){
         numero=numeros*9;
         repeat++;
-        if(repeat%2==0)
+        if(repeat==2)
           numeros--;
       int auxiliar=colores[numero+0];
       colores[numero+0]=colores[numero+3];
@@ -444,11 +453,11 @@ void derecha(){
       int numero=3*9;
       int numeros=3;
       int repeat=0;
-      while(numeros>=2){
+      while(repeat<8){
         numero=numeros*9;
         repeat++;
-        if(repeat%2==0)
-          numeros--;
+        if(repeat==2)
+            numeros--;
       int auxiliar=colores[numero+0];
       colores[numero+0]=colores[numero+3];
       int auxiliar2=colores[numero+1];
@@ -501,9 +510,18 @@ void izquierda(){
   }
 void cuboRubik()
 {
-  glRasterPos2i( 0, 0);
-  glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, 'A');
-  for (int i = 0; i < 54; i=i+1) {
+  glColor3f(1.0,1.0,1.0);
+  time(&horaActual);
+  double segundos=difftime(horaActual,horaInicio);
+  string cadena="Puntaje : "+to_string(segundos);
+  glRasterPos2i( -6, 6);
+  for (int i = 0; i < cadena.size(); ++i)
+  {
+    /* code */
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cadena[i]);
+  }
+  
+ for (int i = 0; i < 54; i=i+1) {
     dibujaVertice(i);
   }
  
@@ -516,14 +534,22 @@ double rotate_x = 0;
 void specialKeys( int key, int x, int y )
 {
 
-     if (key == GLUT_KEY_RIGHT)
+     if (key == GLUT_KEY_RIGHT){
         derecha();
-    else if (key == GLUT_KEY_LEFT)
+         printf("derecha  \n" );
+
+     }
+    else if (key == GLUT_KEY_LEFT){
       izquierda();
-    else if (key == GLUT_KEY_UP)
+         printf("izquierda  \n" );
+    }
+    else if (key == GLUT_KEY_UP){
         arriba();
-    else if (key == GLUT_KEY_DOWN)
+         printf("arriba  \n" );
+      }else if (key == GLUT_KEY_DOWN){
         abajo();
+         printf("abajo  \n" );
+      }
 
 
     glutPostRedisplay();
@@ -544,6 +570,8 @@ void teclado(unsigned char key,int x, int y){
 }
 void display()
 {
+
+  //scanf("%d ",&numeroInicio);
     glClearColor( 0, 0, 0, 1 );
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -563,9 +591,9 @@ void display()
         );
 
 
-    glRotatef( rotate_x, 0.0, 0.0, 1.0 );
-    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
-    glRotatef(rotate_z,1.0,0.0,0.0);
+  //  glRotatef( rotate_x, 0.0, 0.0, 1.0 );
+   // glRotatef( rotate_y, 0.0, 1.0, 0.0 );
+    //glRotatef(rotate_z,1.0,0.0,0.0);
   //  glTranslatef(translate_x, translate_y, 0.0 );
 
     cuboRubik();
@@ -589,7 +617,7 @@ void motion(int x,int y){
 int cuadrante(int a,int b){
   float desplasamientoX=(float)(X11-X22)/3;
     float desplasamientoY=(float)(Y12-Y11)/3;
-    printf("%lf,%lf\n", X11,Y12);
+    //printf("%lf,%lf\n", X11,Y12);
   if(a<=X11&&b<=Y12){
       for(int i=0;i<3;i++)
           for(int j=0;j<3;j++){
@@ -598,7 +626,7 @@ int cuadrante(int a,int b){
             {
               cuadranteX=j;
               cuadranteY=i;
-              printf("cuadrante %d,%d\n",i,j );
+              //printf("cuadrante %d,%d\n",i,j );
                return i*j;
             }
           }
@@ -647,22 +675,27 @@ void mouseClickHandler(int button, int state, int x, int y)
         gluProject( 3-0,3.0,3.0,  model_view, projection, viewport,  &X, &Y, &Z);
         X22=X;
         Y22=Y;;
-        printf("%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,\n", X11,X12,X21,X22, Y11,Y12,Y21,Y22);
+        //printf("%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,\n", X11,X12,X21,X22, Y11,Y12,Y21,Y22);
 
   }
     int anteriorA=cuadranteX,anteriorB=cuadranteY;
 
-    printf("%dcuadrante:%d %d,%d\n",state,cuadrante(x,y),x,y );
+    //printf("%dcuadrante:%d %d,%d\n",state,cuadrante(x,y),x,y );
+    cuadrante(x,y);
     if(state==1){
       if(anteriorA!=cuadranteX || anteriorB!=cuadranteY){
           if(anteriorA<cuadranteX && anteriorB== cuadranteY){
-           printf("derecha!!\n" );giraDerecha(cuadranteY);
+           printf("derecha renglon: %d \n",cuadranteY );
+            giraDerecha(cuadranteY);
          }else if(anteriorA>cuadranteX && anteriorB== cuadranteY){
-            printf("izquierda!!\n" );giraIzquierda(cuadranteY);
+            printf("izquierda renglon: %d \n",cuadranteY );
+          giraIzquierda(cuadranteY);
          }else if(anteriorB>cuadranteY && anteriorA== cuadranteX){
-           printf("Arriba!!\n"); giraArriba(cuadranteX);
+            printf("Arriba columna: %d\n",cuadranteX);
+            giraArriba(cuadranteX);
          }else if(anteriorB<cuadranteY && anteriorA== cuadranteX){
-            printf("Abajp!!\n" );giraAbajo(cuadranteX);
+            printf("Abajo  columna: %d\n",cuadranteX);
+          giraAbajo(cuadranteX);
          }
       }
 
@@ -671,8 +704,15 @@ void mouseClickHandler(int button, int state, int x, int y)
 
 
 }
+void init(){
+
+  cara=0;
+  numeroInicio=0;
+  time(&horaInicio);
+}
 int main( int argc, char **argv )
 {
+  init();
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
