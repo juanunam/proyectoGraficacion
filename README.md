@@ -1,2 +1,3 @@
 banderas para compilar
--lGLU -lGL -lglut
+g++ pruebaMain.cpp -lGLU -lGL -lglut -o pruebaMain --std=c++11
+

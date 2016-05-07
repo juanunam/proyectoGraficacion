@@ -5,6 +5,7 @@
 #include<string.h>
 #include<iostream>
 #include<time.h>
+#include<stdlib.h>
 using namespace std;
 #define PI 3.141592
 time_t horaInicio;
@@ -704,15 +705,38 @@ void mouseClickHandler(int button, int state, int x, int y)
 
 
 }
+void dificultad(int dif){
+  for (int i = 0; i < dif; ++i)
+  {
+    int opcion=rand()%3;
+    int orientacion=(rand()*i+3)%2;
+    int orientacion2=(rand()*i+323+i)%2;
+    if(orientacion2==0){
+      if(orientacion==1){
+          giraArriba(opcion);
+      }else{
+          giraAbajo(opcion);
+      }
+    }else if(orientacion2==1){
+       if(orientacion==1){
+          giraDerecha(opcion);
+      }else{
+          giraIzquierda(opcion);
+      }
+    }
+  }
+}
 void init(){
 
   cara=0;
   numeroInicio=0;
+   dificultad(100);
   time(&horaInicio);
+ 
 }
 int main( int argc, char **argv )
 {
-  init();
+ 
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
@@ -723,6 +747,8 @@ int main( int argc, char **argv )
     glutMouseFunc(mouseClickHandler);
     glutMotionFunc(motion);
     glEnable( GL_DEPTH_TEST );
+     
+init();
     glutMainLoop();
     return 0;
 }
