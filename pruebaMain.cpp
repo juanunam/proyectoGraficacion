@@ -12,17 +12,21 @@
 using namespace std;
 
 //================================================================
+//variables de OpenGL
+//================================================================
+int anteriorW=0;
+int anteriorH=0;
+int cuadranteX,cuadranteY;
+double X11,X12,X21,X22,Y11,Y12,Y21,Y22;
+//================================================================
 //variables de archivos
 //================================================================
-int numeroArchivos=0;
-string contenidoArchivos;
 stack<string> vectorPasos;
 stack<int> vectorParametros;
 stack<string> vectorColores;
 map<string,string> mapaAccion;
 map<string,int> mapaParametro;
 map<string,int> mapaCaminos;
-map<string ,string> mapaContenido;
 //================================================================
 //variables constantes
 //================================================================
@@ -33,10 +37,13 @@ map<string ,string> mapaContenido;
 
 //================================================================
 //================================================================
-
-
+double rotate_z = 0;
+double rotate_y = 0;
+double rotate_x = 0;
+double translate_x=0;
+double translate_y=0;
 //================================================================
-//variables para poner tiempo en pntalla
+//variables para poner tiempo en pantalla
 //================================================================
 time_t horaInicio;
 time_t horaActual;
@@ -227,126 +234,50 @@ int vertices[54][4][3]=
   }
 };
  int colores[54]=
+{ 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  1, 1, 1, 1, 1, 1, 1, 1, 1,
+  2, 2, 2, 2, 2, 2, 2, 2, 2,
+  3, 3, 3, 3, 3, 3, 3, 3, 3,
+  4, 4, 4, 4, 4, 4, 4, 4, 4,
+  5, 5, 5, 5, 5, 5, 5, 5, 5
+};
+GLfloat color[8][3] =
 {
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-5,
-5,
-5,
-5,
-5,
-5,
-5,
-5,
-5
+  {1.0,1.0,0.0}, //amarillo 0
+  {1.0,1.0,1.0},//Blanco 1
+  {0.0,1.0,0.0}, //Verde 2
+  {0.0,0.0,1.0},//Azul 3
+  {1.0,0.0,0.0}, // Rojo 4
+  {0.9,0.38,0.0}, //naranja 5
+  {1.0,1.0,1.0},//Blanco
+  {0.0,0.0,0.0}//negro
 };
-int coloresOriginales[54]={
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-3,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-4,
-5,
-5,
-5,
-5,
-5,
-5,
-5,
-5,
-5
-};
-
-
-
-
 //================================================================
+//Funciones prototipo
 //================================================================
-
 void relizarAccion(string accion,int parametro);
+bool completado();
+string convierteColores();
+void guardarArchivo();
+void guardarPasos();
+void dibujaVertice(int vertice);
+void relizarAccion(string accion,int parametro);
+void permutaVertices(int a,int b);
+void permutaVerticesRenglon(int a,int b,int renglon);
+void permutaVerticesColumna(int a,int b,int columna);
+void giraDerecha(int renglon);
+void giraIzquierda(int renglon);
+void giraArriba(int columna);
+void giraAbajo(int columna);
+void arriba();
+void abajo();
+void derecha();
+void izquierda();
+//================================================================
+//================================================================
+//================================================================
+//Funciones consulta al cubo
+//================================================================
 bool completado(){
   int numeroInicial=0;
   for (int j = 0; j < 6; ++j)
@@ -359,6 +290,7 @@ bool completado(){
   }
   return true;
 }
+
 string convierteColores(){
   string nodos="";
   for (int i = 0; i < 54; ++i)
@@ -367,8 +299,9 @@ string convierteColores(){
   }
   return nodos;
 }
-//=================================================================
-//=================================================================
+//================================================================
+//Funciones para guardar el final
+//================================================================
 void guardarArchivo(){
   FILE* archivoTres;
     cout<<"sa"<<endl;
@@ -386,7 +319,6 @@ void guardarPasos(){
 
   string pasosCadena="";
   string numeracionCadena="";
-  contenidoArchivos="";
   int tamanoPila=vectorPasos.size();
   for (int i = 0; i < tamanoPila; ++i)
   {
@@ -394,13 +326,11 @@ void guardarPasos(){
     pasosCadena=vectorPasos.top(); 
     if(mapaCaminos[numeracionCadena]!=0){
        if(mapaCaminos[numeracionCadena]>i+1){
-          numeroArchivos++;
           mapaCaminos[numeracionCadena]=i+1;
           mapaParametro[numeracionCadena]=vectorParametros.top();
           mapaAccion[numeracionCadena]=vectorPasos.top();
        }
     }else{
-      numeroArchivos++;
       mapaCaminos[numeracionCadena]=i+1;
       mapaParametro[numeracionCadena]=vectorParametros.top();
       mapaAccion[numeracionCadena]=vectorPasos.top();
@@ -432,24 +362,55 @@ void inicializarMapa(){
        mapaAccion[lineaNumeros]=lineaAccion;
        cout<<lineaNumeros<<" "<<peso<<" "<<" "<<parametro<<" "<<lineaAccion<<endl;
   
-       numeroArchivos++;
     }
   }
     file.close();
 
 }
-GLfloat color[8][3] =
-{
-  {1.0,1.0,0.0}, //amarillo 0
-  {1.0,1.0,1.0},//Blanco 1
-    {0.0,1.0,0.0}, //Verde 2
-    {0.0,0.0,1.0},//Azul 3
-    {1.0,0.0,0.0}, // Rojo 4
-    {0.9,0.38,0.0}, //naranja 5
 
-    {1.0,1.0,1.0},//Blanco
-    {0.0,0.0,0.0},//negro
-};
+//=================================================================
+//=================================================================
+//Funciones para operar en el cubo
+//=================================================================
+
+void relizarAccion(string accion,int parametro){
+  bool giroBool=true;
+
+  vectorPasos.push(accion);
+  vectorParametros.push(parametro);
+  vectorColores.push(convierteColores());
+  if(accion=="derecha"){
+    derecha();
+    giroBool=false;
+  }else if(accion =="izquierda"){
+    izquierda();
+    giroBool=false;
+
+  }else if(accion =="arriba"){
+    arriba();
+    giroBool=false;
+
+  }else if(accion =="abajo"){
+    abajo();
+    giroBool=false;
+
+  }else if(accion=="giraderecha"){
+    giraDerecha(parametro);
+  }else if(accion =="giraizquierda"){
+    giraIzquierda(parametro);
+  }else if(accion =="giraarriba"){
+    giraArriba(parametro);
+  }else if(accion =="giraabajo"){
+    giraAbajo(parametro);
+  }
+
+  cout<<convierteColores()<<endl;
+  if(completado()){
+    printf("listo!\n");
+    guardarPasos();
+  }
+}
+
 void permutaVertices(int a,int b){
     int originalA=a;
     a=a*9;
@@ -555,11 +516,12 @@ void giraIzquierda(int renglon){
 }
 void giraArriba(int columna){
 //printf("girando columna=%d\n",columna );
+      
       permutaVerticesColumna(3,0,columna);
-     permutaVerticesColumna(1,3,columna);
-     permutaVerticesColumna(2,1,columna);
+      permutaVerticesColumna(1,3,columna);
+      permutaVerticesColumna(2,1,columna);
  
- int numero=-1;
+      int numero=-1;
       int contador=6 ;
       if(columna==0){
         numero=5*9;
@@ -601,7 +563,7 @@ void arriba(){
       permutaVertices(1,3);
       permutaVertices(2,1);
 
-int numero=3*9;
+      int numero=3*9;
       int numeros=5;
       int repeat=0;
       while(repeat<8){
@@ -675,11 +637,15 @@ void izquierda(){
     derecha();
       derecha();
 }
+//=================================================================
+//Funciones OpenGL
+//=================================================================
 
-  void dibujaVertice(int vertice){
+void dibujaVertice(int vertice){
 
-      glLineWidth(1.0);
-    glBegin(GL_QUADS);
+  glLineWidth(1.0);
+  glBegin(GL_QUADS);
+
     glColor3fv(color[colores[vertice]]);
 
     glVertex3iv(vertices[vertice][0]);
@@ -687,9 +653,9 @@ void izquierda(){
     glVertex3iv(vertices[vertice][3]);
     glVertex3iv(vertices[vertice][2]);
 
-    glEnd();
-      glLineWidth(4.0);
-    glBegin(GL_LINE_STRIP);
+  glEnd();
+  glLineWidth(4.0);
+  glBegin(GL_LINE_STRIP);
 
     glColor3fv(color[7]);
     glVertex3iv(vertices[vertice][0]);
@@ -697,30 +663,30 @@ void izquierda(){
     glVertex3iv(vertices[vertice][3]);
     glVertex3iv(vertices[vertice][2]);
     glVertex3iv(vertices[vertice][0]);
-    glEnd();
-  }
+  glEnd();
+}
 void cuboRubik()
 {
   glColor3f(1.0,1.0,1.0);
   time(&horaActual);
   double segundos=difftime(horaActual,horaInicio);
   string cadena="Puntaje : "+to_string(segundos);
-    string parametroCadena;
-    string accionPosible;
-    string numeroColores=convierteColores();
-    if(mapaCaminos[numeroColores]!=0){
-      accionPosible = mapaAccion[numeroColores];
-      int parametroNumero=mapaParametro[numeroColores];
+  string parametroCadena;
+  string accionPosible;
+  string numeroColores=convierteColores();
+  if(mapaCaminos[numeroColores]!=0){
+    accionPosible = mapaAccion[numeroColores];
+    int parametroNumero=mapaParametro[numeroColores];
 
-      if(accionPosible == "giraizquierda" || accionPosible == "giraderecha"){
-        parametroCadena=parametroNumero==0?"Techo":(parametroNumero==1?"Centro":"Piso");
-      }else  if(accionPosible == "giraarriba" || accionPosible == "giraabajo"){
-        parametroCadena=parametroNumero==0?"Izquierda":(parametroNumero==1?"Centro":"Derecha");
-      }else{
-        parametroCadena="";
-      }
-       cadena=cadena+" pista: "+accionPosible+" parametro: "+parametroCadena;
+    if(accionPosible == "giraizquierda" || accionPosible == "giraderecha"){
+      parametroCadena=parametroNumero==0?"Techo":(parametroNumero==1?"Centro":"Piso");
+    }else  if(accionPosible == "giraarriba" || accionPosible == "giraabajo"){
+      parametroCadena=parametroNumero==0?"Izquierda":(parametroNumero==1?"Centro":"Derecha");
+    }else{
+      parametroCadena="";
     }
+     cadena=cadena+" pista: "+accionPosible+" parametro: "+parametroCadena;
+  }
 
    
   glRasterPos2i( -14, 6);
@@ -736,18 +702,18 @@ void cuboRubik()
  
 }
 
-double rotate_z = 0;
-double rotate_y = 0;
-double rotate_x = 0;
+
+//=================================================================
+//=================================================================
+//Funciones para operar en el cubo
+//=================================================================
 
 void specialKeys( int key, int x, int y )
 {
     string accionHacer="";
-
     if (key == GLUT_KEY_RIGHT){
       accionHacer="derecha";
       printf("derecha  \n" );
-
     }
     else if (key == GLUT_KEY_LEFT){
       accionHacer="izquierda";
@@ -760,12 +726,11 @@ void specialKeys( int key, int x, int y )
       accionHacer="abajo";
       printf("abajo  \n" );
     }
+
     relizarAccion(accionHacer,0);
     glutPostRedisplay();
 }
 
-double translate_x=0;
-double translate_y=0;
 void teclado(unsigned char key,int x, int y){
   if (key == 'd')
   translate_x-=1;
@@ -817,17 +782,12 @@ void display()
     glEnd();
     glutSwapBuffers();
 }
-int anteriorW=0;
-int anteriorH=0;
-int cuadranteX,cuadranteY;
-double X11,X12,X21,X22,Y11,Y12,Y21,Y22;
 void motion(int x,int y){
 
 }
 int cuadrante(int a,int b){
   float desplasamientoX=(float)(X11-X22)/3;
-    float desplasamientoY=(float)(Y12-Y11)/3;
-    //printf("%lf,%lf\n", X11,Y12);
+  float desplasamientoY=(float)(Y12-Y11)/3;
   if(a<=X11&&b<=Y12){
       for(int i=0;i<3;i++)
           for(int j=0;j<3;j++){
@@ -888,41 +848,44 @@ void mouseClickHandler(int button, int state, int x, int y)
         //printf("%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,\n", X11,X12,X21,X22, Y11,Y12,Y21,Y22);
 
   }
-    int anteriorA=cuadranteX,anteriorB=cuadranteY;
-
-    //printf("%dcuadrante:%d %d,%d\n",state,cuadrante(x,y),x,y );
-    cuadrante(x,y);
-    if(state==1){
-      if(anteriorA!=cuadranteX || anteriorB!=cuadranteY){
-        string accionHacer="";
-        int opcionHacer=-1;
-          if(anteriorA<cuadranteX && anteriorB== cuadranteY){
-           printf("derecha renglon: %d \n",cuadranteY );
-           accionHacer="giraderecha";
-           opcionHacer=cuadranteY;
-         }else if(anteriorA>cuadranteX && anteriorB== cuadranteY){
-            printf("izquierda renglon: %d \n",cuadranteY );
-           accionHacer="giraizquierda";
-           opcionHacer=cuadranteY;
-         }else if(anteriorB>cuadranteY && anteriorA== cuadranteX){
-            printf("Arriba columna: %d\n",cuadranteX);
-             accionHacer="giraarriba";
-             opcionHacer=cuadranteX;
-         }else if(anteriorB<cuadranteY && anteriorA== cuadranteX){
-            printf("Abajo  columna: %d\n",cuadranteX);
-             accionHacer="giraabajo";
-             opcionHacer=cuadranteX;
-         
-         }
-         if(opcionHacer!=-1)
-        relizarAccion(accionHacer,opcionHacer);
-      }
+  int anteriorA=cuadranteX,anteriorB=cuadranteY;
+  cuadrante(x,y);
+  if(state==1){
+    if(anteriorA!=cuadranteX || anteriorB!=cuadranteY){
+      string accionHacer="";
+      int opcionHacer=-1;
+        if(anteriorA<cuadranteX && anteriorB== cuadranteY){
+         printf("derecha renglon: %d \n",cuadranteY );
+         accionHacer="giraderecha";
+         opcionHacer=cuadranteY;
+       }else if(anteriorA>cuadranteX && anteriorB== cuadranteY){
+          printf("izquierda renglon: %d \n",cuadranteY );
+         accionHacer="giraizquierda";
+         opcionHacer=cuadranteY;
+       }else if(anteriorB>cuadranteY && anteriorA== cuadranteX){
+          printf("Arriba columna: %d\n",cuadranteX);
+           accionHacer="giraarriba";
+           opcionHacer=cuadranteX;
+       }else if(anteriorB<cuadranteY && anteriorA== cuadranteX){
+          printf("Abajo  columna: %d\n",cuadranteX);
+           accionHacer="giraabajo";
+           opcionHacer=cuadranteX;
+       
+       }
+      if(opcionHacer!=-1)
+       relizarAccion(accionHacer,opcionHacer);
+    }
 
     glutPostRedisplay();
-    }
+  }
 
 
 }
+
+//=================================================================
+//=================================================================
+//Funciones para personalizar la corrida
+//=================================================================
 void dificultad(int dif){
   for (int i = 0; i < dif; ++i)
   {
@@ -944,52 +907,19 @@ void dificultad(int dif){
     }
   }
 }
-void relizarAccion(string accion,int parametro){
-  bool giroBool=true;
-
-  vectorPasos.push(accion);
-  vectorParametros.push(parametro);
-  vectorColores.push(convierteColores());
-  if(accion=="derecha"){
-    derecha();
-    giroBool=false;
-  }else if(accion =="izquierda"){
-    izquierda();
-    giroBool=false;
-
-  }else if(accion =="arriba"){
-    arriba();
-    giroBool=false;
-
-  }else if(accion =="abajo"){
-    abajo();
-    giroBool=false;
-
-  }else if(accion=="giraderecha"){
-    giraDerecha(parametro);
-  }else if(accion =="giraizquierda"){
-    giraIzquierda(parametro);
-  }else if(accion =="giraarriba"){
-    giraArriba(parametro);
-  }else if(accion =="giraabajo"){
-    giraAbajo(parametro);
-  }
-
-  cout<<convierteColores()<<endl;
-  if(completado()){
-    printf("listo!\n");
-    guardarPasos();
-  }
-}
-void init(){
+void init(int dif){
   inicializarMapa();
-  dificultad(2);
+  dificultad(dif);
   time(&horaInicio);
  
 }
+//=================================================================
+//=================================================================
 int main( int argc, char **argv )
 {
- 
+    int dif=1;
+    printf("¿Qué dificultad deseas tener?: \n");
+    scanf("%d",&dif);
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
@@ -1001,7 +931,7 @@ int main( int argc, char **argv )
     glutMotionFunc(motion);
     glEnable( GL_DEPTH_TEST );
      
-init();
+    init(dif);
     glutMainLoop();
     return 0;
 }
