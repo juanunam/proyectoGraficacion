@@ -6,7 +6,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
-#include <fstream> 
+#include <fstream>
 #include <map>
 #include <stack>
 using namespace std;
@@ -84,7 +84,7 @@ int vertices[54][4][3]=
  { //vertice 9
   {-3,1,1},  {-3,1,3},  {-3,3,1},  {-3,3,3}
  },
-// Cara 2 
+// Cara 2
  { //vertice 16
   {3,-3,1},  {3,-3,3},  {3,-1,1},  {3,-1,3}
  },
@@ -273,6 +273,7 @@ void arriba();
 void abajo();
 void derecha();
 void izquierda();
+string posible(string actual);
 //================================================================
 //================================================================
 //================================================================
@@ -299,17 +300,20 @@ string convierteColores(){
   }
   return nodos;
 }
+string posible(string actual){
+  
+}
 //================================================================
 //Funciones para guardar el final
 //================================================================
 void guardarArchivo(){
   FILE* archivoTres;
-    cout<<"sa"<<endl;
+  //  cout<<"sa"<<endl;
   archivoTres = fopen("mapa.txt", "w");
-    cout<<"sa"<<endl;
+  //  cout<<"sa"<<endl;
   for (auto it = std::begin(mapaAccion); it!=std::end(mapaAccion); ++it){
     string numerosDelMapa=it->first;
-    cout<<numerosDelMapa<<endl;
+  //  cout<<numerosDelMapa<<endl;
     fprintf(archivoTres, "%s %d %d %s\n",numerosDelMapa.c_str(),mapaCaminos[numerosDelMapa],mapaParametro[numerosDelMapa],mapaAccion[numerosDelMapa].c_str() );
   }
   fclose(archivoTres);
@@ -323,7 +327,7 @@ void guardarPasos(){
   for (int i = 0; i < tamanoPila; ++i)
   {
     numeracionCadena=vectorColores.top();
-    pasosCadena=vectorPasos.top(); 
+    pasosCadena=vectorPasos.top();
     if(mapaCaminos[numeracionCadena]!=0){
        if(mapaCaminos[numeracionCadena]>i+1){
           mapaCaminos[numeracionCadena]=i+1;
@@ -334,14 +338,15 @@ void guardarPasos(){
       mapaCaminos[numeracionCadena]=i+1;
       mapaParametro[numeracionCadena]=vectorParametros.top();
       mapaAccion[numeracionCadena]=vectorPasos.top();
-      printf("Paso!\n");
+      printf("Aprendi!!\n");
     }
-    vectorPasos.pop(); 
+    vectorPasos.pop();
     vectorColores.pop();
     vectorParametros.pop();
   }
   guardarArchivo();
 }
+
 void inicializarMapa(){
   string filename="mapa.txt";
   ifstream file(filename.c_str());
@@ -360,8 +365,8 @@ void inicializarMapa(){
        mapaCaminos[lineaNumeros]=peso;
        mapaParametro[lineaNumeros]=parametro;
        mapaAccion[lineaNumeros]=lineaAccion;
-       cout<<lineaNumeros<<" "<<peso<<" "<<" "<<parametro<<" "<<lineaAccion<<endl;
-  
+      // cout<<lineaNumeros<<" "<<peso<<" "<<" "<<parametro<<" "<<lineaAccion<<endl;
+
     }
   }
     file.close();
@@ -404,7 +409,7 @@ void relizarAccion(string accion,int parametro){
     giraAbajo(parametro);
   }
 
-  cout<<convierteColores()<<endl;
+  //cout<<convierteColores()<<endl;
   if(completado()){
     printf("listo!\n");
     guardarPasos();
@@ -420,7 +425,7 @@ void permutaVertices(int a,int b){
       colores[a+i]=colores[b+i];
       colores[b+i]=aux;
     }
-    
+
     if(originalA==3 && b==0){
       for(int i=0;i<4;i=i+1){
 
@@ -432,7 +437,7 @@ void permutaVertices(int a,int b){
         colores[b+(8-i)]=aux;
       }
     }
- 
+
 }
 void permutaVerticesRenglon(int a,int b,int renglon){
 
@@ -443,8 +448,8 @@ void permutaVerticesRenglon(int a,int b,int renglon){
       colores[a+i]=colores[b+i];
       colores[b+i]=aux;
     }
-   
- 
+
+
 }
 void permutaVerticesColumna(int a,int b,int columna){
 
@@ -466,8 +471,8 @@ void permutaVerticesColumna(int a,int b,int columna){
       }
     }
 
-     
- 
+
+
 }
 void giraDerecha(int renglon){
       renglon=2-renglon;
@@ -475,7 +480,7 @@ void giraDerecha(int renglon){
       permutaVerticesRenglon(5,1,renglon);
       permutaVerticesRenglon(5,0,renglon);
       //printf("giraDerecha %d\n",renglon );
-   
+
       int numero=-1;
       int contador=2;
       if(renglon==0){
@@ -505,22 +510,22 @@ void giraDerecha(int renglon){
       auxiliar2=colores[numero+3];
       colores[numero+3]=auxiliar;
       }
-    
+
 }
 
 void giraIzquierda(int renglon){
- 
+
      giraDerecha(renglon);
      giraDerecha(renglon);
      giraDerecha(renglon);
 }
 void giraArriba(int columna){
 //printf("girando columna=%d\n",columna );
-      
+
       permutaVerticesColumna(3,0,columna);
       permutaVerticesColumna(1,3,columna);
       permutaVerticesColumna(2,1,columna);
- 
+
       int numero=-1;
       int contador=6 ;
       if(columna==0){
@@ -688,18 +693,18 @@ void cuboRubik()
      cadena=cadena+" pista: "+accionPosible+" parametro: "+parametroCadena;
   }
 
-   
+
   glRasterPos2i( -14, 6);
   for (int i = 0; i < cadena.size(); ++i)
   {
     /* code */
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, cadena[i]);
   }
-  
- for(int i=0;i<54;i=i+1){ 
-  dibujaVertice(i); 
+
+ for(int i=0;i<54;i=i+1){
+  dibujaVertice(i);
  }
- 
+
 }
 
 
@@ -870,7 +875,7 @@ void mouseClickHandler(int button, int state, int x, int y)
           printf("Abajo  columna: %d\n",cuadranteX);
            accionHacer="giraabajo";
            opcionHacer=cuadranteX;
-       
+
        }
       if(opcionHacer!=-1)
        relizarAccion(accionHacer,opcionHacer);
@@ -911,7 +916,7 @@ void init(int dif){
   inicializarMapa();
   dificultad(dif);
   time(&horaInicio);
- 
+
 }
 //=================================================================
 //=================================================================
@@ -930,7 +935,7 @@ int main( int argc, char **argv )
     glutMouseFunc(mouseClickHandler);
     glutMotionFunc(motion);
     glEnable( GL_DEPTH_TEST );
-     
+
     init(dif);
     glutMainLoop();
     return 0;
