@@ -738,13 +738,13 @@ void specialKeys( int key, int x, int y )
 
 void teclado(unsigned char key,int x, int y){
   if (key == 'd')
-  rotate_x-=10;
+  translate_x-=1;
   else if (key == 'a')
-  rotate_x+=10;
+  translate_x+=1;
   else if (key == 's')
-  rotate_y+=10;
+  translate_y+=1;
   else if (key == 'w')
-  rotate_y-=10;
+  translate_y-=1;
   glutPostRedisplay();
 }
 void display()
@@ -771,8 +771,8 @@ void display()
         );
 
 
-    glRotatef( rotate_x, 0.0, 0.0, 1.0 );
-    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
+  //  glRotatef( rotate_x, 0.0, 0.0, 1.0 );
+   // glRotatef( rotate_y, 0.0, 1.0, 0.0 );
     //glRotatef(rotate_z,1.0,0.0,0.0);
   //  glTranslatef(translate_x, translate_y, 0.0 );
 
