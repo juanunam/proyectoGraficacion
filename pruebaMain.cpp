@@ -241,16 +241,16 @@ int vertices[54][4][3]=
   4, 4, 4, 4, 4, 4, 4, 4, 4,
   5, 5, 5, 5, 5, 5, 5, 5, 5
 };
-GLfloat color[8][3] =
+GLfloat color[8][4] =
 {
-  {1.0,1.0,0.0}, //amarillo 0
-  {1.0,1.0,1.0},//Blanco 1
-  {0.0,1.0,0.0}, //Verde 2
-  {0.0,0.0,1.0},//Azul 3
-  {1.0,0.0,0.0}, // Rojo 4
-  {0.9,0.38,0.0}, //naranja 5
-  {1.0,1.0,1.0},//Blanco
-  {0.0,0.0,0.0}//negro
+  {1.0,1.0,0.0,0.5}, //amarillo 0
+  {1.0,1.0,1.0,0.5},//Blanco 1
+  {0.0,1.0,0.0,0.5}, //Verde 2
+  {0.0,0.0,1.0,0.5},//Azul 3
+  {1.0,0.0,0.0,0.5}, // Rojo 4
+  {0.9,0.38,0.0,0.5}, //naranja 5
+  {1.0,1.0,1.0,0.5},//Blanco
+  {0.0,0.0,0.0,1.0}//negro
 };
 //================================================================
 //Funciones prototipo
@@ -651,7 +651,7 @@ void dibujaVertice(int vertice){
   glLineWidth(1.0);
   glBegin(GL_QUADS);
 
-    glColor3fv(color[colores[vertice]]);
+    glColor4fv(color[colores[vertice]]);
 
     glVertex3iv(vertices[vertice][0]);
     glVertex3iv(vertices[vertice][1]);
@@ -662,7 +662,7 @@ void dibujaVertice(int vertice){
   glLineWidth(4.0);
   glBegin(GL_LINE_STRIP);
 
-    glColor3fv(color[7]);
+    glColor4fv(color[7]);
     glVertex3iv(vertices[vertice][0]);
     glVertex3iv(vertices[vertice][1]);
     glVertex3iv(vertices[vertice][3]);
@@ -935,6 +935,8 @@ int main( int argc, char **argv )
     glutMouseFunc(mouseClickHandler);
     glutMotionFunc(motion);
     glEnable( GL_DEPTH_TEST );
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
 
     init(dif);
     glutMainLoop();
