@@ -296,7 +296,7 @@ string convierteColores(){
   string nodos="";
   for (int i = 0; i < 54; ++i)
   {
-     nodos+=to_string(colores[i]);
+     nodos+=('0'+colores[i]);
   }
   return nodos;
 }
@@ -307,11 +307,12 @@ string posible(string actual){
 //Funciones para guardar el final
 //================================================================
 void guardarArchivo(){
+  std::map<string,string>::iterator it;
   FILE* archivoTres;
   //  cout<<"sa"<<endl;
   archivoTres = fopen("mapa.txt", "w");
   //  cout<<"sa"<<endl;
-  for (auto it = std::begin(mapaAccion); it!=std::end(mapaAccion); ++it){
+  for ( it = mapaAccion.begin(); it!=mapaAccion.end(); ++it){
     string numerosDelMapa=it->first;
   //  cout<<numerosDelMapa<<endl;
     fprintf(archivoTres, "%s %d %d %s\n",numerosDelMapa.c_str(),mapaCaminos[numerosDelMapa],mapaParametro[numerosDelMapa],mapaAccion[numerosDelMapa].c_str() );
@@ -675,7 +676,13 @@ void cuboRubik()
   glColor3f(1.0,1.0,1.0);
   time(&horaActual);
   double segundos=difftime(horaActual,horaInicio);
-  string cadena="Puntaje : "+to_string(segundos);
+  char segundosChar[50];
+  sprintf (segundosChar, "%lf",segundos);
+  string cadena="Puntaje : ";
+  for (int i = 0; i < strlen(segundosChar); ++i)
+  {
+    cadena+=segundosChar[i];
+  }
   string parametroCadena;
   string accionPosible;
   string numeroColores=convierteColores();
