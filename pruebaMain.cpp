@@ -560,83 +560,24 @@ void giraArriba(int columna){
 }
 void giraAbajo(int columna){
   giraArriba(columna);
-    giraArriba(columna);
-      giraArriba(columna);
+  giraArriba(columna);
+  giraArriba(columna);
 }
 void arriba(){
 
-      permutaVertices(3,0);
-      permutaVertices(1,3);
-      permutaVertices(2,1);
-
-      int numero=3*9;
-      int numeros=5;
-      int repeat=0;
-      while(repeat<8){
-        numero=numeros*9;
-        repeat++;
-        if(repeat==2)
-          numeros--;
-      int auxiliar=colores[numero+0];
-      colores[numero+0]=colores[numero+3];
-      int auxiliar2=colores[numero+1];
-      colores[numero+1]=auxiliar;
-
-      auxiliar=colores[numero+2];
-      colores[numero+2]=auxiliar2;
-      auxiliar2=colores[numero+5];
-      colores[numero+5]=auxiliar;
-
-      auxiliar=colores[numero+8];
-      colores[numero+8]=auxiliar2;
-      auxiliar2=colores[numero+7];
-      colores[numero+7]=auxiliar;
-
-      auxiliar=colores[numero+6];
-      colores[numero+6]=auxiliar2;
-      auxiliar2=colores[numero+3];
-      colores[numero+3]=auxiliar;
-      }
+ giraArriba(0);
+ giraArriba(1);
+ giraArriba(2);
 }
 void abajo(){
   arriba();
-    arriba();
-      arriba();
+  arriba();
+  arriba();
 }
 void derecha(){
-
-      permutaVertices(1,4);
-      permutaVertices(5,1);
-      permutaVertices(5,0);
-
-      int numero=3*9;
-      int numeros=3;
-      int repeat=0;
-      while(repeat<8){
-        numero=numeros*9;
-        repeat++;
-        if(repeat==2)
-            numeros--;
-      int auxiliar=colores[numero+0];
-      colores[numero+0]=colores[numero+3];
-      int auxiliar2=colores[numero+1];
-      colores[numero+1]=auxiliar;
-
-      auxiliar=colores[numero+2];
-      colores[numero+2]=auxiliar2;
-      auxiliar2=colores[numero+5];
-      colores[numero+5]=auxiliar;
-
-      auxiliar=colores[numero+8];
-      colores[numero+8]=auxiliar2;
-      auxiliar2=colores[numero+7];
-      colores[numero+7]=auxiliar;
-
-      auxiliar=colores[numero+6];
-      colores[numero+6]=auxiliar2;
-      auxiliar2=colores[numero+3];
-      colores[numero+3]=auxiliar;
-      }
+ giraDerecha(0);
+ giraDerecha(1);
+ giraDerecha(2);
 }
 void izquierda(){
   derecha();
